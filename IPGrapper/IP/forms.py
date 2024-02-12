@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField,PasswordField,SubmitField,BooleanField
 from wtforms.validators import DataRequired,Email,Length,Regexp,EqualTo,ValidationError
 from flask_wtf.file import FileField, FileAllowed
-from IPGrapper.models import User
+from IP.models import User
 from flask_login import current_user
 
 
