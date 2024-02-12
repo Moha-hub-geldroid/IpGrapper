@@ -9,3 +9,4 @@ werkzeug
 gunicorn
 email_validator
 requests
+user_agents
