@@ -1,0 +1,24 @@
+.register{
+  width: 330px !important;
+  background-color: #D2042D;
+  color: #F5F5F5;
+  font-weight: bold !important;
+  margin-top: 10px;
+}
+.register:hover{
+  
+  background-color: #D2042D !important;
+  color: #F5F5F5 !important;
+  font-weight: bold !important;
+  border-color: #D2042D !important;
+  
+}
+.label{
+  color: #F5F5F5;
+  font-weight: bold !important;
+}
+.sign-in{
+  color: #D2042D;
+  font-weight: bold !important;
+  text-decoration: none;
+}

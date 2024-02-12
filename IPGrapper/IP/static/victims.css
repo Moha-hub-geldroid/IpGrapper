@@ -1,0 +1,14 @@
+.landpage-link{
+  text-decoration: none !important;
+  color: #D2042D !important;
+  font-weight: bold;
+}
+.copybutton{
+  background-color: white;
+  border-color: white;
+  border: none;
+  width:90px;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: bold;
+}
