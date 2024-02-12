@@ -1,0 +1,16 @@
+{%extends "layout.html"%}
+{%block content%}
+  <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+  <div class="container py-4 px-3" id="base-info" style="margin-top:100px;">
+    
+    <h2 class="info-h1 text-center mb-4">The easiest IP-Grapper tool</h2>
+    <h6 class="text-center">Trick your victims , Grap their info</h6><br><br>
+    {% if current_user.is_authenticated %}
+        <a href="victims" class="btn text-light" id="base-button"> See victims <i class="bi bi-chevron-right"></i></a>
+    {%else%}
+      <a href="register" class="btn text-light" id="base-button"> Register Now <i class="bi bi-chevron-right"></i></a>
+    {%endif%}
+  </div>
+  <img src="https://i.gifer.com/EKm3.gif" alt="Mr. Robot Hacking">
+  
+{%endblock%}
