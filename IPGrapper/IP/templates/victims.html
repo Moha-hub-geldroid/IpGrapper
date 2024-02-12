@@ -1,0 +1,49 @@
+{% extends "layout-2.html" %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='victims.css') }}">
+{% if victims|length == 0 %}
+<center>
+  <h3 style="color:#F5F5F5;margin-top:50%;font-weight:bold;">There are no victims yet! Share your link to trick someone.</h2>
+  <a href="{{ url_for('landpage', username=current_user.username, _external=True) }}" class="landpage-link" id="copyText">{{ url_for('landpage', username=current_user.username, _external=True) }}</a>
+  <div class="mt-3"><button onclick="copyToClipboard(this)" class="copybutton">Copy</button></div>
+</center>
+{% else %}
+<div class="container">
+  <div class="row">
+    {% for victim in victims %}
+    <div class="col-lg py-4 mx-0 pl-2">
+      <div class="card mx-auto">
+        <div class="card-body">
+          <center>
+            <h2 style="font-weight:bold" class="pt-2 pb-3">New victim</h2>
+          </center>
+          <h5 style="color:black;font-weight:bold"> IP: <font style="color:#D2042D;font-weight:bold">{{ victim.visitor_ip }}</font></h5>
+          <h5 style="color:black;font-weight:bold"> OS: <font style="color:#D2042D;font-weight:bold">{{ victim.os_info }}</font></h5>
+          <h5 style="color:black;font-weight:bold"> Device name: <font style="color:#D2042D;font-weight:bold">{{ victim.device_name }}</font></h5>
+          <h5 style="color:black;font-weight:bold"> Country: <font style="color:#D2042D;font-weight:bold">{{ victim.country }}</font></h5>
+          <h5 style="color:black;font-weight:bold"> City: <font style="color:#D2042D;font-weight:bold">{{ victim.city }}</font></h5>
+          <center>
+            <a href="{{ url_for('delete_victim', victim_ip=victim.visitor_ip, user_id=current_user.id) }}" class="btn btn-danger mt-3"><i class="bi bi-trash-fill"></i></a>
+          </center>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<script>
+  function copyToClipboard(button) {
+  var copyText = document.getElementById("copyText").innerText;
+  var copyButton = document.getElementById("bi-clipboard");
+  navigator.clipboard.writeText(copyText).then(function() {
+    button.innerText = "Copied!";
+    
+  }, function() {
+    alert("Failed to copy the text!");
+  });
+}
+
+</script>
+{% endblock %}
