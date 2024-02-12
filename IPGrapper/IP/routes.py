@@ -257,13 +257,16 @@ def landpage(username):
             os_info = "Unknown"
         
         def get_device_name():
-            try:
-                user_agent_string = request.user_agent.string
-                user_agent = parse(user_agent_string)
-                device_name = user_agent.device.family
-                return device_name
-            except:
-                return "Not available"
+            user_agent_string = request.user_agent.string
+            if 'Android' in user_agent_string:
+                
+                parts = user_agent_string.split(';')
+                for part in parts:
+                    if 'Build' in part:
+                        
+                        device_name = part.split('Build/')[1].strip()
+                        return device_name
+            return None
         device_name = get_device_name()
         if device_name is None:
             device_name = "Unknown"
