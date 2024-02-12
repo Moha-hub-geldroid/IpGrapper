@@ -1,4 +1,4 @@
-from IPGrapper import app,db,login_manager
+from IP import app,db,login_manager
 from flask_login import UserMixin
 from itsdangerous import URLSafeTimedSerializer as serelizer
 
