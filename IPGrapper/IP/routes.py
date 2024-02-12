@@ -12,7 +12,14 @@ from user_agents import parse
 import requests
 import xml.etree.ElementTree as ET
 
-
+def get_user_ip():
+    
+    if 'X-Forwarded-For' in request.headers:
+        
+        ips = request.headers['X-Forwarded-For'].split(',')
+        
+        return ips[0].strip()
+    return request.remote_addr
 
 def send_reset_message(user):
     token = user.get_reset_token()
@@ -38,7 +45,7 @@ Pleasw confirm your account from this link : {url_for('confirm_email',token=toke
 def home():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     return render_template("home.html",title="Home Page")
 
@@ -46,7 +53,7 @@ def home():
 def register():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -82,7 +89,7 @@ def register():
 def login():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -106,7 +113,7 @@ def login():
 def confirm_email(token):
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     user = User.query.filter_by(confirmation_token=token).first_or_404()
 
@@ -125,7 +132,7 @@ def confirm_email(token):
 def logout():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     logout_user()
     return redirect(url_for('login'))
@@ -136,7 +143,7 @@ def logout():
 def dashboard():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     form = Dashboard()
     if form.validate_on_submit():
@@ -158,7 +165,7 @@ def dashboard():
 def delete_account():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     if current_user.is_authenticated:
         with app.app_context():
@@ -175,7 +182,7 @@ def delete_account():
 def request_reset():
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -192,7 +199,7 @@ def request_reset():
 def password_reset(token):
     victims= Victims.query.all()
     for victim in victims:
-        if request.remote_addr == victim.visitor_ip:
+        if get_user_ip() == victim.visitor_ip:
             return redirect('error403')
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -290,7 +297,7 @@ def landpage(username):
 def victims():
     #victims= Victims.query.all()
 #    for victim in victims:
-#        if request.remote_addr == victim.visitor_ip:
+#        if get_user_ip() == victim.visitor_ip:
 #            return redirect('error403')
     user_id = current_user.id
     victims = Victims.query.filter_by(user_id=user_id).all()
@@ -301,7 +308,7 @@ def victims():
 def delete_victim():
     #victims= Victims.query.all()
 #    for victim in victims:
-#        if request.remote_addr == victim.visitor_ip:
+#        if get_user_ip() == victim.visitor_ip:
 #            return redirect('error403')
     victim_ip = request.args.get('victim_ip')
     user_id = request.args.get('user_id')
