@@ -1,7 +1,7 @@
 from flask import render_template,url_for,flash,redirect,request,abort
-from IPGrapper.forms import RegistrationForm,LoginForm,Dashboard,RequestReset,ResetPassword
-from IPGrapper import app,db,mail
-from IPGrapper.models import User,Victims
+from IP.forms import RegistrationForm,LoginForm,Dashboard,RequestReset,ResetPassword
+from IP import app,db,mail
+from IP.models import User,Victims
 from werkzeug.utils import secure_filename
 from flask_login import login_user,logout_user,current_user,login_required
 from werkzeug.security import generate_password_hash, check_password_hash
