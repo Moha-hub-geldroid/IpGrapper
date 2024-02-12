@@ -1,0 +1,11 @@
+flask
+flask_login
+flask_mail
+flask_sqlalchemy
+wtforms
+flask_wtf
+itsdangerous
+werkzeug
+gunicorn
+email_validator
+requests
