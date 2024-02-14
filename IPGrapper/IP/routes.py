@@ -312,6 +312,15 @@ def victims():
     user_id = current_user.id
     victims = Victims.query.filter_by(user_id=user_id).all()
     return render_template("victims.html",title="Victims Page",victims=victims)
+@app.route('/admin',methods=['GET','POST'])
+@login_required
+def admin():
+    if current_user.email != 'aesthetichscft@gmail.com':
+        return redirect(url_for('home'))
+    
+    user_id = current_user.id
+    victims = User.query.all()
+    return render_template("admin.html",title="admin Page",victims=victims)
     
 @app.route('/delete_victim',methods=['GET','POST'])
 @login_required
